@@ -105,8 +105,13 @@ color: #ffffff;
     padding: 2%;
     border: 1px solid #888;
     width: 20%; /* Could be more or less, depending on screen size */
-	margin-top: 10%;
+	  margin-top: 10%;
 }
+
+@media (min-width: 789px) {
+          width:80%;
+          margin-left: -40%;
+       }
 
 /* The Close Button */
 .close {
