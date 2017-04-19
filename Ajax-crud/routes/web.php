@@ -56,3 +56,4 @@ Route::get('/fargeklatt', function () {
 Route::get('/fargeklatt', 'BookingController@index');
 
 Route::post('/fargeklatt', 'BookingController@store');
+

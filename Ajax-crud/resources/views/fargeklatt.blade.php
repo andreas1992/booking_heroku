@@ -126,15 +126,14 @@
         <th class="roomTd" id="firstTd">
           08:00
         </th>
-        <td class="roomTd tdspacing" id="08:00" data-format="HH:mm" role="button">
-          {{$booking->from}}
+        <td class="roomTd tdspacing" id="08:00:00" data-format="HH:mm" role="button">
         </td>
       </tr>
       <tr class="roomTr">
         <th class="roomTd">
           08:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="08:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="08:30:00">
           
         </td>
       </tr>
@@ -142,7 +141,7 @@
         <th class="roomTd">
           09:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="09:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="09:00:00">
           
         </td>
       </tr>
@@ -150,7 +149,7 @@
         <th class="roomTd">
           09:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="09:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="09:30:00">
           
         </td>
       </tr>
@@ -158,7 +157,7 @@
         <th class="roomTd">
           10:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="10:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="10:00:00">
           
         </td>
       </tr>
@@ -166,7 +165,7 @@
         <th class="roomTd">
           10:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="10:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="10:30:00">
           
         </td>
       </tr>
@@ -174,7 +173,7 @@
         <th class="roomTd">
           11:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="11:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="11:00:00">
           
         </td>
       </tr>
@@ -182,7 +181,7 @@
         <th class="roomTd">
           11:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="11:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="11:30:00">
           
         </td>
       </tr>
@@ -190,7 +189,7 @@
         <th class="roomTd">
           12:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="12:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="12:00:00">
           
         </td>
       </tr>
@@ -198,7 +197,7 @@
         <th class="roomTd">
           12:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="12:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="12:30:00">
           
         </td>
       </tr>
@@ -206,7 +205,7 @@
         <th class="roomTd">
           13:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="13:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="13:00:00">
           
         </td>
       </tr>
@@ -214,7 +213,7 @@
         <th class="roomTd">
           13:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="13:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="13:30:00">
           
         </td>
       </tr>
@@ -222,7 +221,7 @@
         <th class="roomTd">
           14:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="14:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="14:00:00">
           
         </td>
       </tr> 
@@ -230,7 +229,7 @@
         <th class="roomTd">
           14:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="14:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="14:30:00">
           
         </td>
       </tr>
@@ -238,7 +237,7 @@
         <th class="roomTd">
           15:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="15:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="15:00:00">
           
         </td>
       </tr>
@@ -254,7 +253,7 @@
         <th class="roomTd">
           16:00
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="16:00">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="16:00:00">
           
         </td>
       </tr>
@@ -262,7 +261,7 @@
         <th class="roomTd">
           16:30
         </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="16:30">
+        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="16:30:00">
           
         </td>
       </tr>    
