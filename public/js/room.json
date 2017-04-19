@@ -1,0 +1,20 @@
+[
+    {
+    "id": 1,
+    "room_name": "Tangen",
+    "capacity": 10,
+    "tools": "HDMI, VGA"
+},
+{
+    "id": 2,
+    "room_name": "Corner",
+    "capacity": 6,
+    "tools": "VGA"
+},
+{
+    "id": 3,
+    "room_name": "Markens",
+    "capacity": 10,
+    "tools": "HDMI, Skjerm"
+}
+ ]

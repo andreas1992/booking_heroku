@@ -31,6 +31,18 @@ Route::PUT('/tasks/{task}','TaskController@update')->name('update');
 
 Route::DELETE('/tasks/{task}', 'TaskController@destroy')->name('delete');
 
+Route::get('/', function() {
+
+	$string = file_get_contents('js/room.json');
+	$rooms = json_decode($string, true);
+	//dd($rooms);
+	return view('welcome', compact('rooms'));
+	
+});
+Route::get('ajax',function(){
+   return view('message');
+});
+Route::post('/getmsg','AjaxController@index');
 
 /*Route::get('/tasks', function () {
 	$tasks = DB::table('tasks')->get();

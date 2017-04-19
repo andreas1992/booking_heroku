@@ -48,3 +48,11 @@ Route::delete('/tasks/{task_id?}',function($task_id){
 
     return Response::json($task);
 });
+
+Route::get('/fargeklatt', function () {
+    return view('fargeklatt');
+});
+
+Route::get('/fargeklatt', 'BookingController@index');
+
+Route::post('/fargeklatt', 'BookingController@store');
