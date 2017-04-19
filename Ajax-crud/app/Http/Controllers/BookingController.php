@@ -16,9 +16,10 @@ class BookingController extends Controller
     public function index()
     {
         //Laster opp databasetabellen når siden lastes opp
-        $booking = DB::table('booking')->where('id', 1)->first();
+        $booking = DB::table('booking')->get();
+        
 
-        return view('fargeklatt', compact('booking'));
+        return view('/fargeklatt', compact('booking'));
 
     }
 
