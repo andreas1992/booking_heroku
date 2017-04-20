@@ -83,9 +83,10 @@
           $(inputs[j]).append(data[i]['from']).attr('id', 'bookStart');
         } 
         else if (data[i]['to'] == inputs[j].id) {
-          $(inputs[j]).append(data[i]['to']).attr('id', 'bookEnd');
+          $(inputs[j-1]).append(data[i]['to']).attr('id', 'bookEnd').addClass('colorMe');
         }
       }
+
 
       var start = false;
           $("table td").filter(function(){
@@ -99,6 +100,7 @@
         return start;
 
       }).addClass('colorMe');
+
     }
 
       $(".save_booking").click(function () {
@@ -134,6 +136,7 @@
         return start;
 
       }).addClass('colorMe');
+
 
     });
 
