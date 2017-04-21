@@ -173,8 +173,20 @@
     </script>
   </head>
   <body>
-
-
+    <table class="roomTable" data-toggle="modal" data-target="#myModal">
+              <?php $range=range(strtotime("08:00"),strtotime("17:00"),30*60) ?>
+              @foreach($range as $time)
+                <tr class="roomTr">
+                  <th class="roomTd" id="firstTd">
+                    <?php $date = date("H:i",$time); 
+                    echo $date;?>
+                  </th>
+                  <td class="roomTd tdspacing" id="{{$date . ":00"}}" data-format="HH:mm" role="button"> 
+                  </td>
+                </tr>
+                @endforeach
+    </table>
+<!--
           
     <table class="roomTable"  data-toggle="modal" data-target="#myModal">
       <tr class="roomTr">
@@ -321,7 +333,7 @@
           
         </td>
       </tr> 
- 
+ -->
     </table>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
