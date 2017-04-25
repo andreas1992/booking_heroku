@@ -21,7 +21,7 @@ class CreateBookingsTable extends Migration
             $table->time('from');
             $table->time('to');
 
-            $table->integer('room_id')->unsigned();
+            $table->integer('room_id')->unsigned()->default(1);
             $table->foreign('room_id')->references('id')->on('rooms');
 
             $table->rememberToken();
