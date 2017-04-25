@@ -67,23 +67,65 @@
 
     });
 
-    var data = {!! str_replace("'", "\'", json_encode($booking)) !!};
+    var rooms = {!! str_replace("'", "\'", json_encode($rooms)) !!};
 
-    for(var i = 0; i<data.length; i++) {
-      console.log(data[i]['from'] + " to:" + data[i]['to']);
+    var bookings = {!! str_replace("'", "\'", json_encode($booking)) !!};
+
+    $('#calender-table').empty();
+
+    var start_tid = 8;
+    var slutt_tid = 17;
+    var halvtimer = (slutt_tid - start_tid)*2;
+
+
+    for (var i = 0; i < rooms.length; i++) {
+      var roomId = rooms[i]['id'];
+      var table = '<div class="col-sm-5"><table class="roomTable" id=' + roomId + '>room '+ roomId +'</table></div>';
+      $(table).appendTo('#calender-table');
+
+      var klokkeslett = start_tid;
+      for(var i = 0; i < halvtimer; i++) {
+        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ i +'</th><td class="roomTd tdspacing"></td><tr>').appendTo('table#'+ roomId +'');
+      }
+    }
+
+/**
+
+    <table class="roomTable" data-toggle="modal" data-target="#myModal">
+              <?php $range=range(strtotime("08:00"),strtotime("17:00"),30*60) ?>
+              @foreach($range as $time)
+                <tr class="roomTr">
+                  <th class="roomTd" id="firstTd">
+                    <?php $date = date("H:i",$time); 
+                    echo $date;?>
+                  </th>
+                  <td class="roomTd tdspacing" id="{{$date . ":00"}}" data-format="HH:mm" role="button"> 
+                  </td>
+                </tr>
+                @endforeach
+    </table>
+*/
+
+
+
+
+
+
+    for(var i = 0; i<bookings.length; i++) {
+      console.log(bookings[i]['from'] + " to:" + bookings[i]['to']);
     }
 
     var inputs = document.getElementsByTagName("td");
 
-    for(var i = 0; i < data.length; i++) {
+    for(var i = 0; i < bookings.length; i++) {
       
 
       for (var j = 0; j < inputs.length; j++) {
-        if (data[i]['from'] == inputs[j].id) {
-          $(inputs[j]).append(data[i]['from']).attr('id', 'bookStart');
+        if (bookings[i]['from'] == inputs[j].id) {
+          $(inputs[j]).append(bookings[i]['from']).attr('id', 'bookStart');
         } 
-        else if (data[i]['to'] == inputs[j].id) {
-          $(inputs[j-1]).append(data[i]['to']).attr('id', 'bookEnd').addClass('colorMe');
+        else if (bookings[i]['to'] == inputs[j].id) {
+          $(inputs[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe');
         }
       }
 
@@ -174,9 +216,12 @@
   </head>
   <body>
 
-    @foreach($rooms as $room)
-      <p>{{$room->body}}</p>
-    @endforeach
+  <div class="container">
+    <div class="row" id="calender-table">
+    </div>
+  </div>
+  <!--
+
     <table class="roomTable" data-toggle="modal" data-target="#myModal">
               <?php $range=range(strtotime("08:00"),strtotime("17:00"),30*60) ?>
               @foreach($range as $time)
@@ -190,6 +235,7 @@
                 </tr>
                 @endforeach
     </table>
+    -->
 <!--
           
     <table class="roomTable"  data-toggle="modal" data-target="#myModal">
