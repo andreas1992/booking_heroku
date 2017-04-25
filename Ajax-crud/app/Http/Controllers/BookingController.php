@@ -17,9 +17,10 @@ class BookingController extends Controller
     {
         //Laster opp databasetabellen når siden lastes opp
         $booking = DB::table('booking')->get();
+        $rooms = DB::table('rooms')->get();
         
 
-        return view('/fargeklatt', compact('booking'));
+        return view('/fargeklatt', compact('booking', 'rooms'));
 
     }
 

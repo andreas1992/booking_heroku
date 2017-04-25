@@ -173,6 +173,10 @@
     </script>
   </head>
   <body>
+
+    @foreach($rooms as $room)
+      <p>{{$room->body}}</p>
+    @endforeach
     <table class="roomTable" data-toggle="modal" data-target="#myModal">
               <?php $range=range(strtotime("08:00"),strtotime("17:00"),30*60) ?>
               @foreach($range as $time)
