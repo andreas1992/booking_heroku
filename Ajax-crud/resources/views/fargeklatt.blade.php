@@ -94,10 +94,8 @@
       $(table).appendTo('#calender-table');
 
       for(var j = 0; j < times.length; j++) {
-        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td class="roomTd tdspacing" data-toggle="modal" data-target="#myModal" id=' + (times[j]+':00') + '></td></tr>').appendTo('table#'+ roomId +'');
+        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td role="button" class="roomTd tdspacing" data-toggle="modal" data-target="#myModal" id=' + (times[j]+':00') + '></td></tr>').appendTo('table#'+ roomId +'');
       }
-
-      /* Sette inn riktige bookings i tabellene, i det riktige rommet  */
 
     }
 
@@ -116,10 +114,7 @@
 
 
 
-    var datething = '11:30:00';
-/*
-    for(var k = 0; k <bookings.length; k++) {
-*/
+  
 
     //var tdsInTable = $('table#'+ '1' +'').find('td');
 
@@ -150,8 +145,24 @@
         return start;
 
       }).addClass('colorMe');
-    }/*
-  }
+    }
+
+    /*
+    $('body').append('<p class="test">hei<p>');
+
+
+    $('.test').click(function(e) {
+      alert('hei');
+      $(this).append('<p>hallo</p>');
+    });*/
+
+    $('.roomTable').click(function(e) {
+      var tableID = this.getAttribute("id");
+      //alert(tableID);
+      //$('.form-horizontal').append('<div class="form-group"><input name="table_id" value="'+ tableID +'"></div>');
+      $('.room_id').val(tableID);
+
+    });
 
 
 
@@ -270,11 +281,14 @@
     <div class="row" id="calender-table">
     </div>
   </div>
-  <!--
-
+  
+  <!-- foreach
+  @foreach($rooms as $room)
+    //hente alle bookings inni ett $room, for en gitt dato. sette inn verdi for neste dag, når dette blir valgt
     <table class="roomTable" data-toggle="modal" data-target="#myModal">
               <?php $range=range(strtotime("08:00"),strtotime("17:00"),30*60) ?>
               @foreach($range as $time)
+                // sette på booked hvis tabellen er booket
                 <tr class="roomTr">
                   <th class="roomTd" id="firstTd">
                     <?php $date = date("H:i",$time); 
@@ -285,6 +299,7 @@
                 </tr>
                 @endforeach
     </table>
+@endforeach
     -->
 <!--
           
@@ -477,11 +492,17 @@
                     </span>
                   </div>
               </div>
+              <div class="form-group">
+                <label for="message-text" class="control-label"></label>
+                  <div class='input-group date datetimepicker3'>
+                    <input type='hidden' class="form-control datetimepicker3 room_id" data-format="HH:mm:ss" name="room_id"/>
+                  </div>
+              </div>
               <button type="submit button" class="btn btn-default save_booking"> Lagre </button>
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" class="close">Close</button>
         </div>
   </body>
 </html>

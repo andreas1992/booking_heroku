@@ -49,6 +49,7 @@ class BookingController extends Controller
 
         $booking -> from = $request->from;
         $booking -> to = $request->to;
+        $booking -> room_id = $request->room_id; //skifte til room_id
 
         $booking->save();
 

@@ -21,7 +21,7 @@ class CreateBookingsTable extends Migration
             $table->time('from');
             $table->time('to');
 
-            $table->integer('room_id')->unsigned()->default(1);
+            $table->integer('room_id')->unsigned();
             $table->foreign('room_id')->references('id')->on('rooms');
 
             $table->rememberToken();
@@ -39,7 +39,7 @@ class CreateBookingsTable extends Migration
         $booking2->from = '12:00:00';
         $booking2->to = '13:00:00';
 
-        $booking2->room_id = 1;
+        $booking2->room_id = 2;
         $booking2->save();
 
         $booking3 = new Booking;
@@ -53,7 +53,7 @@ class CreateBookingsTable extends Migration
         $booking4->from = '09:00:00';
         $booking4->to = '12:00:00';
 
-        $booking4->room_id = 2;
+        $booking4->room_id = 1;
         $booking4->save();
 
 
