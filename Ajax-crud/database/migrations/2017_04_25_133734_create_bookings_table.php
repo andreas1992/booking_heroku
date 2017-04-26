@@ -49,6 +49,13 @@ class CreateBookingsTable extends Migration
         $booking3->room_id = 2;
         $booking3->save();
 
+        $booking4 = new Booking;
+        $booking4->from = '09:00:00';
+        $booking4->to = '12:00:00';
+
+        $booking4->room_id = 2;
+        $booking4->save();
+
 
 
     }

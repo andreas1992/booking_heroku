@@ -94,7 +94,7 @@
       $(table).appendTo('#calender-table');
 
       for(var j = 0; j < times.length; j++) {
-        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td class="roomTd tdspacing" id=' + (times[j]+':00') + '></td></tr>').appendTo('table#'+ roomId +'');
+        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td class="roomTd tdspacing" data-toggle="modal" data-target="#myModal" id=' + (times[j]+':00') + '></td></tr>').appendTo('table#'+ roomId +'');
       }
 
       /* Sette inn riktige bookings i tabellene, i det riktige rommet  */
@@ -104,15 +104,66 @@
 
 
 
+    //bookings[i]['room_id']
+
+    // bookings[0]['room_id'] = 1
+    // bookings[1]['room_id'] = 2
+    // bookings[2]['room_id'] = 1
 
 
 
 
+
+
+
+    var datething = '11:30:00';
+/*
+    for(var k = 0; k <bookings.length; k++) {
+*/
+
+    //var tdsInTable = $('table#'+ '1' +'').find('td');
+
+    for(var i = 0; i<bookings.length; i++) {
+
+      var tdsInTable = $('table#'+ bookings[i]['room_id'] +'').find('td');
+
+      for(var j = 0; j <tdsInTable.length; j++) {
+
+        if (bookings[i]['from'] == tdsInTable[j].id) {
+          $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('booked');
+        } 
+        else if (bookings[i]['to'] == tdsInTable[j].id) {
+          $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
+        }
+        
+      }
+
+      var start = false;
+          $("table td").filter(function(){
+            if(this.id == "bookStart" || start) {
+              if(this.id == "bookEnd"){
+                  start = false;
+                  return true;
+              }
+              start = true;
+          }
+        return start;
+
+      }).addClass('colorMe');
+    }/*
+  }
+
+
+
+
+
+/*
 
 
     for(var i = 0; i<bookings.length; i++) {
       console.log(bookings[i]['from'] + " to:" + bookings[i]['to']);
     }
+
 
     var inputs = document.getElementsByTagName("td");
 
@@ -154,7 +205,7 @@
       //var holdId = $('td').attr('id');
       var inputs = document.getElementsByTagName("td");
 
-      /*
+      
 
 
       for (var i = 0; i < inputs.length; i++) {
@@ -178,10 +229,10 @@
 
       }).addClass('colorMe');
 
-*/
+
     });
 
-
+*/
 });
 
 
