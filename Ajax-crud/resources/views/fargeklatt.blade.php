@@ -94,7 +94,7 @@
       $(table).appendTo('#calender-table');
 
       for(var j = 0; j < times.length; j++) {
-        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td class="roomTd tdspacing"></td></tr>').appendTo('table#'+ roomId +'');
+        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td class="roomTd tdspacing" id=' + (times[j]+':00') + '></td></tr>').appendTo('table#'+ roomId +'');
       }
 
       /* Sette inn riktige bookings i tabellene, i det riktige rommet  */
@@ -154,7 +154,7 @@
       //var holdId = $('td').attr('id');
       var inputs = document.getElementsByTagName("td");
 
-      
+      /*
 
 
       for (var i = 0; i < inputs.length; i++) {
@@ -178,7 +178,7 @@
 
       }).addClass('colorMe');
 
-
+*/
     });
 
 
