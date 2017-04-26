@@ -75,36 +75,35 @@
 
     var start_tid = 8;
     var slutt_tid = 17;
-    var halvtimer = (slutt_tid - start_tid)*2;
 
+    var x = 30; //minutes interval
+    var times = []; // time array
+    var tt = start_tid*60; // start time
+
+    //loop to increment the time and push results in array
+    for (var i=0;tt<slutt_tid*60; i++) {
+      var hh = Math.floor(tt/60); // getting hours of day in 0-24 format
+      var mm = (tt%60); // getting minutes of the hour in 0-55 format
+      times[i] = ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2); // pushing data in array in [00:00 - 12:00 AM/PM format]
+      tt = tt + x;
+    }
 
     for (var i = 0; i < rooms.length; i++) {
       var roomId = rooms[i]['id'];
       var table = '<div class="col-sm-5"><table class="roomTable" id=' + roomId + '>room '+ roomId +'</table></div>';
       $(table).appendTo('#calender-table');
 
-      var klokkeslett = start_tid;
-      for(var i = 0; i < halvtimer; i++) {
-        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ i +'</th><td class="roomTd tdspacing"></td><tr>').appendTo('table#'+ roomId +'');
+      for(var j = 0; j < times.length; j++) {
+        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td class="roomTd tdspacing"></td></tr>').appendTo('table#'+ roomId +'');
       }
+
+      /* Sette inn riktige bookings i tabellene, i det riktige rommet  */
+
     }
 
-/**
 
-    <table class="roomTable" data-toggle="modal" data-target="#myModal">
-              <?php $range=range(strtotime("08:00"),strtotime("17:00"),30*60) ?>
-              @foreach($range as $time)
-                <tr class="roomTr">
-                  <th class="roomTd" id="firstTd">
-                    <?php $date = date("H:i",$time); 
-                    echo $date;?>
-                  </th>
-                  <td class="roomTd tdspacing" id="{{$date . ":00"}}" data-format="HH:mm" role="button"> 
-                  </td>
-                </tr>
-                @endforeach
-    </table>
-*/
+
+
 
 
 
