@@ -97,7 +97,7 @@
       $(table).appendTo('#calender-table');
 
       for(var j = 0; j < times.length; j++) {
-        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td role="button" class="roomTd tdspacing" data-toggle="modal" data-target="#myModal" id=' + (times[j]+':00') + '></td></tr>').appendTo('table#'+ roomId +'');
+        $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td role="button" class="roomTd tdspacing" data-toggle="modal" data-target="#myModal" id=' + (times[j]+':00') + ' name='+ (times[j]+':00') +'></td></tr>').appendTo('table#'+ roomId +'');
       }
 
     }
@@ -117,10 +117,10 @@
       for(var j = 0; j <tdsInTable.length; j++) {
 
         if (bookings[i]['from'] == tdsInTable[j].id) {
-          $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart');
+          $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked');
         } 
         else if (bookings[i]['to'] == tdsInTable[j].id) {
-          $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe');
+          $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
         }
         
       }
@@ -140,6 +140,13 @@
 
       }).addClass('colorMe booked');
 
+$('table#'+ 1 +' td').filter(function(){
+
+            var thisName = $(this).attr("name");
+            console.log(thisName);
+            var thisClass = $(this).attr("class");
+            console.log(thisClass);
+          });
 
 
 
@@ -155,22 +162,142 @@
     });
 
 /*
+    var getHowManyLinesInBooking = function(bookedFrom, bookedTo, room_id) {
+      var numberOfBookings = -1;
+      var start = false;
+      $('table#'+ room_id +' td').filter(function(){
+        //feks 08:30:00
+        var thisName = $(this).attr("name");
+        if(thisName == bookedFrom || start) {
+          if(thisName == bookedTo) {
+            start = false;
+            numberOfBookings ++;
+            return numberOfBookings;
+          }
+          start = true;
+          numberOfBookings ++;
+        }
+      });
+      return numberOfBookings;
+    };
+
+
     $('.save_booking').click(function(e) {
       // bookedFrom = 12:00:00
       var bookedFrom = $(".datetimepicker3").find("input[name='from']").val() + ":00";
+      alert("booked from: " + bookedFrom);
       // bookedTo = 14:00:00
       var bookedTo = $(".datetimepicker3").find("input[name='to']").val() + ":00";
+      alert("booked to: " + bookedTo);
       // room_id = 2
       var room_id = $(".datetimepicker3").find("input[name='room_id']").val();
-      
+      alert("room_id: " + room_id);
+
+      var lines = getHowManyLinesInBooking(bookedFrom, bookedTo, room_id);
+
+
+    });
+*/
+
+
+    var checkIfBooked = function(bookedFrom, bookedTo, room_id) {
       var start = false;
+      var returnStr = "booking proceed";
+      $('table#'+ room_id +' td').filter(function(){
+        //feks 08:30:00
+        var thisName = $(this).attr("name");
+        //alert("thisName: " + thisName);
+        var thisClass = $(this).attr("class");
+        //alert("thisClass: " + thisClass);
+
+        //alert("returnStr: " + returnStr);
+        if(thisName == bookedFrom || start) {
+          alert(thisName + " = " + bookedFrom);
+          if(thisName == bookedTo) {
+            alert(thisName + " = " + bookedTo);
+            start = false;
+            if(thisClass == 'roomTd tdspacing colorMe booked') {
+              returnStr = "can't book: the room is already booked at the given times";
+              return false;
+            }
+            return false;
+          }
+          start = true;
+          if(thisClass == 'roomTd tdspacing colorMe booked') {
+            returnStr = "can't book: the room is already booked at the given times";
+            return false;
+        }
+      }
+    });
+    return returnStr;
+  };
+
+
+
+  $('.save_booking').click(function(e) {
+      // bookedFrom = 12:00:00
+      var bookedFrom = $(".datetimepicker3").find("input[name='from']").val() + ":00";
+      alert("booked from: " + bookedFrom);
+      // bookedTo = 14:00:00
+      var bookedTo = $(".datetimepicker3").find("input[name='to']").val() + ":00";
+      alert("booked to: " + bookedTo);
+      // room_id = 2
+      var room_id = $(".datetimepicker3").find("input[name='room_id']").val();
+      alert("room_id: " + room_id);
+
+      var bookCheck = checkIfBooked(bookedFrom, bookedTo, room_id);
+      alert(bookCheck);
+
+    });
+
+/*
+    $('.save_booking').click(function(e) {
+      // bookedFrom = 12:00:00
+      var bookedFrom = $(".datetimepicker3").find("input[name='from']").val() + ":00";
+      alert("booked from: " + bookedFrom);
+      // bookedTo = 14:00:00
+      var bookedTo = $(".datetimepicker3").find("input[name='to']").val() + ":00";
+      alert("booked to: " + bookedTo);
+      // room_id = 2
+      var room_id = $(".datetimepicker3").find("input[name='room_id']").val();
+      alert("room_id: " + room_id);    
+
           //tabell 2 sine td
+      var numberOfBookings;
           $('table#'+ room_id +' td').filter(function(){
+
+            var thisName = $(this).attr("name");
+            console.log(thisName);
+            var thisClass = $(this).attr("class");
+            console.log(thisClass);
+
+            var bookingsList = [];
+
+
+            // lage en liste av bookings mellom bookedFrom og bookedTo
+            if(thisName == bookedFrom) {
+              bookingsList.put(thisName);
+            }
+
+
+
+            if(thisName == bookedFrom || thisName == bookedTo) {
+              alert("this name: " + thisName);
+                if(thisClass == 'roomTd tdspacing colorMe booked') {
+                  alert('td has booking at: ' + thisName);
+                  return false;
+                }
+            }
+
+            // proceed with booking
+
+
+
 
             //this[0] 08:00:00 != 12:00:00
             //this[8] 12:00:00 == 12:00:00
               //
-
+              /*
             if(this.id == bookedFrom || start) {
               if(this.id == bookedTo){
                   start = false;
@@ -183,7 +310,7 @@
         return start;
       
     });
-*/
+});*/
 
 /*
 
