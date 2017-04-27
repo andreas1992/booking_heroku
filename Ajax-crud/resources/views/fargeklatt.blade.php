@@ -73,20 +73,23 @@
 
     $('#calender-table').empty();
 
-    var start_tid = 8;
-    var slutt_tid = 17;
+    // Takes starttime and endtime, return list with the times in half hour format
+    var makeTimeHalfHour = function(start_tid, slutt_tid) {
+      var x = 30; //minutes interval
+      var times = []; // time array
+      var tt = start_tid*60; // start time
 
-    var x = 30; //minutes interval
-    var times = []; // time array
-    var tt = start_tid*60; // start time
-
-    //loop to increment the time and push results in array
-    for (var i=0;tt<slutt_tid*60; i++) {
-      var hh = Math.floor(tt/60); // getting hours of day in 0-24 format
-      var mm = (tt%60); // getting minutes of the hour in 0-55 format
-      times[i] = ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2); // pushing data in array in [00:00 - 12:00 AM/PM format]
-      tt = tt + x;
+      //loop to increment the time and push results in array
+      for (var i=0;tt<slutt_tid*60; i++) {
+        var hh = Math.floor(tt/60); // getting hours of day in 0-24 format
+        var mm = (tt%60); // getting minutes of the hour in 0-55 format
+        times[i] = ("0" + (hh)).slice(-2) + ':' + ("0" + mm).slice(-2); // pushing data in array in [00:00 - 12:00 AM/PM format]
+        tt = tt + x;
+      }
+      return times;
     }
+
+    var times = makeTimeHalfHour(8, 17);
 
     for (var i = 0; i < rooms.length; i++) {
       var roomId = rooms[i]['id'];
@@ -99,22 +102,11 @@
 
     }
 
-
-
-
     //bookings[i]['room_id']
 
     // bookings[0]['room_id'] = 1
     // bookings[1]['room_id'] = 2
     // bookings[2]['room_id'] = 1
-
-
-
-
-
-
-
-  
 
     //var tdsInTable = $('table#'+ '1' +'').find('td');
 
@@ -147,10 +139,7 @@
       }).addClass('colorMe');
     }
 
-    /*
-    $('body').append('<p class="test">hei<p>');
-
-
+/*
     $('.test').click(function(e) {
       alert('hei');
       $(this).append('<p>hallo</p>');
@@ -158,120 +147,9 @@
 
     $('.roomTable').click(function(e) {
       var tableID = this.getAttribute("id");
-      //alert(tableID);
-      //$('.form-horizontal').append('<div class="form-group"><input name="table_id" value="'+ tableID +'"></div>');
       $('.room_id').val(tableID);
-
     });
-
-
-
-
-
-/*
-
-
-    for(var i = 0; i<bookings.length; i++) {
-      console.log(bookings[i]['from'] + " to:" + bookings[i]['to']);
-    }
-
-
-    var inputs = document.getElementsByTagName("td");
-
-    for(var i = 0; i < bookings.length; i++) {
-      
-
-      for (var j = 0; j < inputs.length; j++) {
-        if (bookings[i]['from'] == inputs[j].id) {
-          $(inputs[j]).append(bookings[i]['from']).attr('id', 'bookStart');
-        } 
-        else if (bookings[i]['to'] == inputs[j].id) {
-          $(inputs[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe');
-        }
-      }
-
-
-      var start = false;
-          $("table td").filter(function(){
-            if(this.id == "bookStart" || start) {
-              if(this.id == "bookEnd"){
-                  start = false;
-                  return true;
-              }
-              start = true;
-          }
-        return start;
-
-      }).addClass('colorMe');
-
-    }
-
-      $(".save_booking").click(function () {
-      var printme = $(".datetimepicker3").find("input[name='from']").val();
-      var printme2 = $(".datetimepicker3").find("input[name='to']").val();
-
-      console.log(printme);
-      console.log(printme2);
-
-      //var holdId = $('td').attr('id');
-      var inputs = document.getElementsByTagName("td");
-
-      
-
-
-      for (var i = 0; i < inputs.length; i++) {
-        if (printme == inputs[i].id) {
-          $(inputs[i]).append(printme).attr('id', 'bookStart');
-        } 
-        else if (printme2 == inputs[i].id) {
-          $(inputs[i]).append(printme2).attr('id', 'bookEnd');
-        }
-      }
-            var start = false;
-          $("table td").filter(function(){
-            if(this.id == "bookStart" || start) {
-              if(this.id == "bookEnd"){
-                  start = false;
-                  return true;
-              }
-              start = true;
-          }
-        return start;
-
-      }).addClass('colorMe');
-
-
-    });
-
-*/
 });
-
-
-
-
-         /*var start = false;
-          $("table td").filter(function(){
-            if(this.id == "bookStart" || start) {
-              if(this.id == "bookEnd"){
-                  start = false;
-                  return true;
-              }
-              start = true;
-          }
-        return start;
-
-      }).addClass('colorMe');*/
-
-
-
-
-
-
-
-
-  //alert(inputs[i].id);
-
-
 
     </script>
   </head>
@@ -301,155 +179,6 @@
     </table>
 @endforeach
     -->
-<!--
-          
-    <table class="roomTable"  data-toggle="modal" data-target="#myModal">
-      <tr class="roomTr">
-        <th class="roomTd" id="firstTd">
-          08:00
-        </th>
-        <td class="roomTd tdspacing" id="08:00:00" data-format="HH:mm" role="button">
-
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          08:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="08:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          09:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="09:00:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          09:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="09:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          10:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="10:00:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          10:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="10:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          11:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="11:00:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          11:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="11:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          12:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="12:00:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          12:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="12:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          13:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="13:00:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          13:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="13:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          14:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="14:00:00">
-          
-        </td>
-      </tr> 
-      <tr class="roomTr">
-        <th class="roomTd">
-          14:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="14:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          15:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="15:00:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          15:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="15:30:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          16:00
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="16:00:00">
-          
-        </td>
-      </tr>
-      <tr class="roomTr">
-        <th class="roomTd">
-          16:30
-        </th>
-        <td class="roomTd tdspacing" data-format="HH:mm:ss" id="16:30:00">
-          
-        </td>
-      </tr> 
- -->
-    </table>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
