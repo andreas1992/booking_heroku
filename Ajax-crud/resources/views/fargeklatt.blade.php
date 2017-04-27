@@ -117,10 +117,10 @@
       for(var j = 0; j <tdsInTable.length; j++) {
 
         if (bookings[i]['from'] == tdsInTable[j].id) {
-          $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('booked');
+          $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart');
         } 
         else if (bookings[i]['to'] == tdsInTable[j].id) {
-          $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
+          $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe');
         }
         
       }
@@ -136,7 +136,7 @@
           }
         return start;
 
-      }).addClass('colorMe');
+      }).addClass('colorMe booked');
     }
 
 /*
@@ -149,6 +149,100 @@
       var tableID = this.getAttribute("id");
       $('.room_id').val(tableID);
     });
+
+
+/*
+
+
+    for(var i = 0; i<bookings.length; i++) {
+      console.log(bookings[i]['from'] + " to:" + bookings[i]['to']);
+    }
+
+
+    var inputs = document.getElementsByTagName("td");
+
+    for(var i = 0; i < bookings.length; i++) {
+      
+
+      for (var j = 0; j < inputs.length; j++) {
+        if (bookings[i]['from'] == inputs[j].id) {
+          $(inputs[j]).append(bookings[i]['from']).attr('id', 'bookStart');
+        } 
+        else if (bookings[i]['to'] == inputs[j].id) {
+          $(inputs[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe');
+        }
+      }
+
+
+      var start = false;
+          $("table td").filter(function(){
+            if(this.id == "bookStart" || start) {
+              if(this.id == "bookEnd"){
+                  start = false;
+                  return true;
+              }
+              start = true;
+          }
+        return start;
+
+      }).addClass('colorMe');
+
+    }
+
+      $(".save_booking").click(function () {
+      var printme = $(".datetimepicker3").find("input[name='from']").val();
+      var printme2 = $(".datetimepicker3").find("input[name='to']").val();
+
+      console.log(printme);
+      console.log(printme2);
+
+      //var holdId = $('td').attr('id');
+      var inputs = document.getElementsByTagName("td");
+
+      
+
+
+      for (var i = 0; i < inputs.length; i++) {
+        if (printme == inputs[i].id) {
+          $(inputs[i]).append(printme).attr('id', 'bookStart');
+        } 
+        else if (printme2 == inputs[i].id) {
+          $(inputs[i]).append(printme2).attr('id', 'bookEnd');
+        }
+      }
+            var start = false;
+          $("table td").filter(function(){
+            if(this.id == "bookStart" || start) {
+              if(this.id == "bookEnd"){
+                  start = false;
+                  return true;
+              }
+              start = true;
+          }
+        return start;
+
+      }).addClass('colorMe');
+
+
+    });
+
+*/
+
+
+
+
+         /*var start = false;
+          $("table td").filter(function(){
+            if(this.id == "bookStart" || start) {
+              if(this.id == "bookEnd"){
+                  start = false;
+                  return true;
+              }
+              start = true;
+          }
+        return start;
+
+      }).addClass('colorMe');*/
 });
 
     </script>
