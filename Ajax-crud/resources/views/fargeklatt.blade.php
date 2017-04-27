@@ -124,8 +124,10 @@
         }
         
       }
+    }
 
-      var start = false;
+    // Fargelegge alle celler/td fra og med bookstart til og med bookend, for alle celler i tabell
+    var start = false;
           $("table td").filter(function(){
             if(this.id == "bookStart" || start) {
               if(this.id == "bookEnd"){
@@ -137,7 +139,9 @@
         return start;
 
       }).addClass('colorMe booked');
-    }
+
+
+
 
 /*
     $('.test').click(function(e) {
@@ -150,6 +154,36 @@
       $('.room_id').val(tableID);
     });
 
+/*
+    $('.save_booking').click(function(e) {
+      // bookedFrom = 12:00:00
+      var bookedFrom = $(".datetimepicker3").find("input[name='from']").val() + ":00";
+      // bookedTo = 14:00:00
+      var bookedTo = $(".datetimepicker3").find("input[name='to']").val() + ":00";
+      // room_id = 2
+      var room_id = $(".datetimepicker3").find("input[name='room_id']").val();
+      
+      var start = false;
+          //tabell 2 sine td
+          $('table#'+ room_id +' td').filter(function(){
+
+            //this[0] 08:00:00 != 12:00:00
+            //this[8] 12:00:00 == 12:00:00
+              //
+
+            if(this.id == bookedFrom || start) {
+              if(this.id == bookedTo){
+                  start = false;
+                  return true;
+              }
+
+
+              start = true;
+          }
+        return start;
+      
+    });
+*/
 
 /*
 
