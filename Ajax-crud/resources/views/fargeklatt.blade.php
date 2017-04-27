@@ -213,9 +213,9 @@ $('table#'+ 1 +' td').filter(function(){
 
         //alert("returnStr: " + returnStr);
         if(thisName == bookedFrom || start) {
-          alert(thisName + " = " + bookedFrom);
+          //alert(thisName + " = " + bookedFrom);
           if(thisName == bookedTo) {
-            alert(thisName + " = " + bookedTo);
+            //alert(thisName + " = " + bookedTo);
             start = false;
             if(thisClass == 'roomTd tdspacing colorMe booked') {
               //returnStr = "can't book: the room is already booked at the given times";
@@ -241,16 +241,16 @@ $('table#'+ 1 +' td').filter(function(){
   $('.save_booking').click(function(e) {
       // bookedFrom = 12:00:00
       var bookedFrom = $(".datetimepicker3").find("input[name='from']").val() + ":00";
-      alert("booked from: " + bookedFrom);
+      //alert("booked from: " + bookedFrom);
       // bookedTo = 14:00:00
       var bookedTo = $(".datetimepicker3").find("input[name='to']").val() + ":00";
-      alert("booked to: " + bookedTo);
+      //alert("booked to: " + bookedTo);
       // room_id = 2
       var room_id = $(".datetimepicker3").find("input[name='room_id']").val();
-      alert("room_id: " + room_id);
+      //alert("room_id: " + room_id);
 
       var bookCheck = checkIfBooked(bookedFrom, bookedTo, room_id);
-      alert("bookable = " + bookCheck);
+      //alert("bookable = " + bookCheck);
 
       if(bookCheck == false) {
         alert("Can't book: the room is already booked at the given times");
