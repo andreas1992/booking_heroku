@@ -254,7 +254,12 @@ $('table#'+ 1 +' td').filter(function(){
 
       if(bookCheck == false) {
         alert("Can't book: the room is already booked at the given times");
-        $('.form-horizontal').attr('method', "GET");
+        //$('.form-horizontal').attr('method', "GET");
+        //$('.form-horizontal').val();
+        $('.save_booking').attr('type', "button");
+      }
+      else {
+        $('.save_booking').attr('type', "sumbit button");
       }
 
     });
