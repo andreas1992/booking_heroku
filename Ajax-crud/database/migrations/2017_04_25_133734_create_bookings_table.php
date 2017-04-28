@@ -20,6 +20,7 @@ class CreateBookingsTable extends Migration
             $table->increments('id');
             $table->time('from');
             $table->time('to');
+            $table->text('dateString');
 
             $table->integer('room_id')->unsigned();
             $table->foreign('room_id')->references('id')->on('rooms');
@@ -31,6 +32,7 @@ class CreateBookingsTable extends Migration
         $booking1 = new Booking;
         $booking1->from = '08:00:00';
         $booking1->to = '09:00:00';
+        $booking1->dateString = '28/4/2017';
 
         $booking1->room_id = 1;
         $booking1->save();
@@ -38,26 +40,10 @@ class CreateBookingsTable extends Migration
         $booking2 = new Booking;
         $booking2->from = '12:00:00';
         $booking2->to = '13:00:00';
+        $booking2->dateString = '29/4/2017';
 
         $booking2->room_id = 2;
         $booking2->save();
-
-        $booking3 = new Booking;
-        $booking3->from = '15:00:00';
-        $booking3->to = '16:00:00';
-
-        $booking3->room_id = 2;
-        $booking3->save();
-
-        $booking4 = new Booking;
-        $booking4->from = '09:00:00';
-        $booking4->to = '12:00:00';
-
-        $booking4->room_id = 1;
-        $booking4->save();
-
-
-
     }
 
     /**

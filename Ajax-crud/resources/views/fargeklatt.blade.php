@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
@@ -40,8 +41,17 @@
         format: 'DD dd/mm/yyyy',
         language: 'nb',
         todayHighlight: true,
+        //calendarWeeks: true,
+        //autoclose: true,
+        weekStart: 1,
       }).datepicker("setDate", new Date());
 
+      /* Hente ut dagens dato */
+    var currDate = new Date($('#date').datepicker('getDate'));
+    var strDateTime =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
+    //alert("dagens dato: " + strDateTime);
+
+/*
     var date_input=$('div[name="date"]'); //our date input has the name "date"
     var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
     date_input.datepicker({
@@ -52,7 +62,32 @@
       language: 'nb',
       orientation: 'top',
       setDate: new Date(),
+    });*/
+
+    /* Limt inn fra her.. */
+/*
+    $('.next-day').on("click", function () {
+      var date = $('#date').datepicker('getDate');
+      date.setTime(date.getTime() + (1000*60*60*24))
+        $('#date').datepicker("setDate", date);
+        var currDate = new Date($('#date').datepicker('getDate'));
+        var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
+        alert(strDateTime2);
+        displayBookings(bookings, strDateTime2);
     });
+
+    $('.prev-day').on("click", function () {
+      var date = $('#date').datepicker('getDate');
+      date.setTime(date.getTime() - (1000*60*60*24))
+        $('#date').datepicker("setDate", date);
+        //alert($('#date').datepicker('getDate'));
+        var currDate = new Date($('#date').datepicker('getDate'));
+        var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
+        alert(strDateTime2);
+        displayBookings(bookings, strDateTime2);
+    });    
+*/
+    /* ..til her */
 
     $('.datetimepicker3').each(function(k, v) {
       var $input = $(v).find('.datetimepicker3');
@@ -90,17 +125,32 @@
     }
 
     var times = makeTimeHalfHour(8, 17);
-
+/*
     for (var i = 0; i < rooms.length; i++) {
       var roomId = rooms[i]['id'];
-      var table = '<div class="col-sm-5"><table class="roomTable" id=' + roomId + '>room '+ roomId +'</table></div>';
+      var table = '<div class="col-sm-5"><table class="roomTable" id=' + roomId + '>'+ rooms[i]['body'] +'</table></div>';
       $(table).appendTo('#calender-table');
 
       for(var j = 0; j < times.length; j++) {
         $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td role="button" class="roomTd tdspacing" data-toggle="modal" data-target="#myModal" id=' + (times[j]+':00') + ' name='+ (times[j]+':00') +'></td></tr>').appendTo('table#'+ roomId +'');
       }
 
-    }
+    }*/
+
+    var makeRoomTables = function(rooms, times) {
+      for (var i = 0; i < rooms.length; i++) {
+          var roomId = rooms[i]['id'];
+          var table = '<div class="col-sm-5"><table class="roomTable" id=' + roomId + '>'+ rooms[i]['body'] +'</table></div>';
+          $(table).appendTo('#calender-table');
+
+          for(var j = 0; j < times.length; j++) {
+            $('<tr class="roomTr"><th class="roomTd" id="firstTd">'+ times[j] +'</th><td role="button" class="roomTd tdspacing" data-toggle="modal" data-target="#myModal" id=' + (times[j]+':00') + ' name='+ (times[j]+':00') +'></td></tr>').appendTo('table#'+ roomId +'');
+          }
+        }
+      
+    };
+
+    makeRoomTables(rooms, times);
 
     //bookings[i]['room_id']
 
@@ -110,24 +160,33 @@
 
     //var tdsInTable = $('table#'+ '1' +'').find('td');
 
-    for(var i = 0; i<bookings.length; i++) {
+    var displayBookings = function(bookings, strDateTime) {
 
-      var tdsInTable = $('table#'+ bookings[i]['room_id'] +'').find('td');
+      for(var i = 0; i<bookings.length; i++) {
 
-      for(var j = 0; j <tdsInTable.length; j++) {
+        //alert(bookings[i]['dateString']);
+        if(bookings[i]['dateString'] == strDateTime) {
 
-        if (bookings[i]['from'] == tdsInTable[j].id) {
-          $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked');
-        } 
-        else if (bookings[i]['to'] == tdsInTable[j].id) {
-          $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
+          var tdsInTable = $('table#'+ bookings[i]['room_id'] +'').find('td');
+
+          for(var j = 0; j <tdsInTable.length; j++) {
+
+            if (bookings[i]['from'] == tdsInTable[j].id) {
+              $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked');
+            } 
+            else if (bookings[i]['to'] == tdsInTable[j].id) {
+              $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
+            }
+          }
         }
-        
       }
-    }
+    };
+
+    displayBookings(bookings, strDateTime);
 
     // Fargelegge alle celler/td fra og med bookstart til og med bookend, for alle celler i tabell
-    var start = false;
+    var colorBookings = function() {
+      var start = false;
           $("table td").filter(function(){
             if(this.id == "bookStart" || start) {
               if(this.id == "bookEnd"){
@@ -139,6 +198,65 @@
         return start;
 
       }).addClass('colorMe booked');
+    };
+
+    colorBookings();
+
+
+
+    /* Event handlers for hva som skjer når selected day, next day, eller prev day trykkes på */
+
+
+
+    $('.next-day').on("click", function () {
+      var date = $('#date').datepicker('getDate');
+      date.setTime(date.getTime() + (1000*60*60*24))
+        $('#date').datepicker("setDate", date);
+        /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
+        $('.roomTable td').filter(function() {
+          $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("");
+        });
+        var currDate = new Date($('#date').datepicker('getDate'));
+        var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
+        //alert(strDateTime2);
+        /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
+        displayBookings(bookings, strDateTime2);
+        colorBookings();
+    });
+
+    $('.prev-day').on("click", function () {
+      var date = $('#date').datepicker('getDate');
+      date.setTime(date.getTime() - (1000*60*60*24))
+        $('#date').datepicker("setDate", date);
+        /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
+         $('.roomTable td').filter(function() {
+          $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("");
+        });
+        var currDate = new Date($('#date').datepicker('getDate'));
+        var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
+        //alert(strDateTime2);
+        /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
+        displayBookings(bookings, strDateTime2);
+        colorBookings();
+    });    
+
+
+    /* bootstrap-datepicker ting som kjører når event 'changeDate' oppstår */
+    $('#date').datepicker().on('changeDate', function(e) {
+          /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
+           $('.roomTable td').filter(function() {
+            $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("");
+          });
+          var currDate = new Date($('#date').datepicker('getDate'));
+          var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
+          //alert(strDateTime2);
+          /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
+          displayBookings(bookings, strDateTime2);
+          colorBookings();
+      });
+
+
+
 
 $('table#'+ 1 +' td').filter(function(){
 
@@ -156,9 +274,14 @@ $('table#'+ 1 +' td').filter(function(){
       $(this).append('<p>hallo</p>');
     });*/
 
+/* Funksjon som blir trigget når du vil lage en ny booking ved å trykke et sted i tabellen */
     $('.roomTable').click(function(e) {
       var tableID = this.getAttribute("id");
       $('.room_id').val(tableID);
+
+      var currDate = new Date($('#date').datepicker('getDate'));
+      var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
+      $('.dateString').val(strDateTime2);
     });
 
 /*
@@ -426,9 +549,33 @@ $('table#'+ 1 +' td').filter(function(){
   <body>
 
   <div class="container">
+    <div class="row" id="calender_date">
+        <div class="calendar_top page-header">
+          <div class="row">
+            <div class="col-xs-2 col-sm-4 col-md-4 text-right">
+              <a class="btn_bookingVCalender btn prev-day"><span class="glyphicon glyphicon-chevron-left"></span><span class="hidden-xs"> Forrige dag</span></a>
+            </div>
+            <div class="col-xs-8 col-sm-4 col-md-4 text-center">
+              <div class="form-group">
+                <div class="input-group date" id="date" name="date">
+                      <input class="form-control" type="text" readonly />
+                      <div class="input-group-addon"> 
+                        <span class="glyphicon glyphicon-calendar"></span> 
+                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-2 col-sm-4 col-md-4 text-left">
+              <a class="btn_bookingVCalender btn next-day"><span class="hidden-xs">Neste dag </span><span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
     <div class="row" id="calender-table">
     </div>
   </div>
+
+
   
   <!-- foreach
   @foreach($rooms as $room)
@@ -465,7 +612,7 @@ $('table#'+ 1 +' td').filter(function(){
               <div class="form-group">
                 <label for="message-text" class="control-label">Dato</label>
                 <div class="input-group date" id="date" name="date">
-                  <input class="form-control" type="text">
+                  <input class="form-control dateString" type="text" name="dateString">
                   <div class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </div>
@@ -502,6 +649,9 @@ $('table#'+ 1 +' td').filter(function(){
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" class="close">Close</button>
+        </div>
+        </div>
+        </div>
         </div>
   </body>
 </html>
