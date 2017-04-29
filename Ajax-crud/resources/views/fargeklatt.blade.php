@@ -38,7 +38,7 @@
     <script>
     $(document).ready(function(){
       $("#date").datepicker({
-        format: 'DD dd/mm/yyyy',
+        format: 'dd/mm/yyyy',
         language: 'nb',
         todayHighlight: true,
         //calendarWeeks: true,
@@ -46,10 +46,31 @@
         weekStart: 1,
       }).datepicker("setDate", new Date());
 
+    //var dateStr = "";
+    var dateStr = {!! json_encode(session('dateStr')) !!}
+    //alert(dateStr);
+
+    /* Vise tabeller for riktig dato, og sørge for at det er i riktig dato-format */
+    var strDateTime = "";
+    if(dateStr == null) {
+      var currDate = new Date($('#date').datepicker('getDate'));
+      strDateTime =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
       /* Hente ut dagens dato */
-    var currDate = new Date($('#date').datepicker('getDate'));
+    }
+    else {
+      strDateTime = dateStr;  
+      var parts = dateStr.split('/');
+      //please put attention to the month (parts[0]), Javascript counts months from 0:
+      // January - 0, February - 1, etc
+        //parts[2] = year, parts[1]-1 = month, parts[0] = day
+      var mydate = new Date(parts[2],parts[1]-1, parts[0]);
+      //alert("strDateTime: " + strDateTime);
+      //alert(mydate.toDateString()); 
+      $('#date').datepicker("setDate", mydate);
+    }
+    /*var currDate = new Date($('#date').datepicker('getDate'));
     var strDateTime =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
-    //alert("dagens dato: " + strDateTime);
+    //alert("dagens dato: " + strDateTime);*/
 
 /*
     var date_input=$('div[name="date"]'); //our date input has the name "date"
@@ -173,6 +194,7 @@
 
             if (bookings[i]['from'] == tdsInTable[j].id) {
               $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked');
+              //$(tdsInTable[j]).append('<a href="/fargeklatt/'+bookings[i]['id']+'" id="'+ bookings[i]['id'] +'">slett</a>');
             } 
             else if (bookings[i]['to'] == tdsInTable[j].id) {
               $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
@@ -547,7 +569,14 @@ $('table#'+ 1 +' td').filter(function(){
     </script>
   </head>
   <body>
-
+<!--
+  <p> dateStr = {{ session('dateStr') }}
+    @if(session()->has('dateStr'))
+      <div class="alert alert-success">
+        {{ session('dateStr') }}
+      </div>
+    @endif
+  </p>-->
   <div class="container">
     <div class="row" id="calender_date">
         <div class="calendar_top page-header">

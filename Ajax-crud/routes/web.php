@@ -53,7 +53,10 @@ Route::get('/fargeklatt', function () {
     return view('fargeklatt');
 });
 
-Route::get('/fargeklatt', 'BookingController@index');
+Route::get('/fargeklatt', 'BookingController@index')->name('fargeklatt');;
 
 Route::post('/fargeklatt', 'BookingController@store');
 
+Route::DELETE('/fargeklatt/{booking}', 'BookingController@destroy')->name('delete');
+
+Route::get('/fargeklatt/{booking}', 'BookingController@show')->name('show_booking');

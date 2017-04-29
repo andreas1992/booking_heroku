@@ -50,11 +50,14 @@ class BookingController extends Controller
         $booking -> from = $request->from;
         $booking -> to = $request->to;
         $booking -> room_id = $request->room_id; //skifte til room_id
-        $booking -> dateString = $request->dateString;
+        $dateStr = $request->dateString;
+        $booking -> dateString = $dateStr;
 
         $booking->save();
 
-        return Redirect ('/fargeklatt');
+        //return Redirect('/fargeklatt');
+        return redirect()->back()->with(compact('dateStr'));
+        //return redirect()->route('fargeklatt', ['dateStr' => $dateStr]);
     }
 
     /**
@@ -65,7 +68,9 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //
+        $booking = DB::table('booking')->find($id);
+
+        return view('bookings.show', compact('booking'));
 
     }
 
@@ -100,6 +105,8 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('booking')->where('id', $id)->delete();
+
+        return redirect('/fargeklatt');
     }
 }
