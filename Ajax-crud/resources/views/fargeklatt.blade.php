@@ -194,7 +194,7 @@
 
             if (bookings[i]['from'] == tdsInTable[j].id) {
               $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked');
-              //$(tdsInTable[j]).append('<a href="/fargeklatt/'+bookings[i]['id']+'" id="'+ bookings[i]['id'] +'">slett</a>');
+              $(tdsInTable[j]).append('<a href="/fargeklatt/'+bookings[i]['id']+'" id="'+ bookings[i]['id'] +'">vis booking</a>');
             } 
             else if (bookings[i]['to'] == tdsInTable[j].id) {
               $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
@@ -367,7 +367,7 @@ $('table#'+ 1 +' td').filter(function(){
               //bookable = false;
               return false;
             }
-            return false;
+            return false; // Tilsvarende break;
           }
           start = true;
           if(thisClass == 'roomTd tdspacing colorMe booked') {

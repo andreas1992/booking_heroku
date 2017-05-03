@@ -18,10 +18,11 @@
 			<a href="/fargeklatt">Tilbake</a>
 			<br/>
 			<br/>
+			<p>from: {{$booking->from}}</p>
 			<br/>
 			<br/>
-			<!--<button class="btn btn-danger">Delete task</button>--><!--
 			<button type="button-btn" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm">Delete booking</button>
+			{{ Form::model($booking, array('route' => array('delete', $booking->id), 'method' => 'DELETE')) }}
 			<div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 				<div class="modal-dialog modal-sm" role="document">
 					<div class="modal-content">
@@ -33,9 +34,10 @@
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-danger">Delete</button>
 						</div>
-						</div>/.modal-content 
+						</div><!-- /.modal-content -->
 					</div>
-				</div>-->
+				</div>
+				{{ Form::close() }}
 			</div>
 			
 		</body>
