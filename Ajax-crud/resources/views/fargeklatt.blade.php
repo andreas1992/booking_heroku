@@ -181,6 +181,11 @@
 
     //var tdsInTable = $('table#'+ '1' +'').find('td');
 
+    var makeBookingClickable = function () {
+      $(".colorMe").attr("data-target", "#booking_modal");
+      $(".colorMe").attr("data-toggle", "modal");
+    }
+
     var displayBookings = function(bookings, strDateTime) {
 
       for(var i = 0; i<bookings.length; i++) {
@@ -223,7 +228,7 @@
     };
 
     colorBookings();
-
+    makeBookingClickable();
 
 
     /* Event handlers for hva som skjer når selected day, next day, eller prev day trykkes på */
@@ -409,6 +414,8 @@ $('table#'+ 1 +' td').filter(function(){
       }
 
     });
+
+
 
 /*
     $('.save_booking').click(function(e) {
@@ -625,6 +632,31 @@ $('table#'+ 1 +' td').filter(function(){
     </table>
 @endforeach
     -->
+<div class="modal fade" id="booking_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="bolle"> Tester </button>
+
+
+
+
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
