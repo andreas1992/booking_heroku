@@ -201,11 +201,11 @@
           for(var j = 0; j <tdsInTable.length; j++) {
 
             if (bookings[i]['from'] == tdsInTable[j].id) {
-              $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked').attr('value', bookings[i]['id']);
+              $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked').attr('holdID', bookings[i]['id']);
               $(tdsInTable[j]).append('<a href="/fargeklatt/'+bookings[i]['id']+'" id="'+ bookings[i]['id'] +'">vis booking</a>');
             } 
             else if (bookings[i]['to'] == tdsInTable[j].id) {
-              $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked').attr('value', bookings[i]['id']);
+              $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked').attr('holdID', bookings[i]['id']);
             }
           }
         }
@@ -219,17 +219,21 @@
       var start = false;
       var bookingID = "";
           $("table td").filter(function(){
+            // Hente ID til booking gjennom atributtet holdID
+            if(this.id == "bookStart") {
+              bookingID = this.getAttribute('holdID');
+            }
             if(this.id == "bookStart" || start) {
               if(this.id == "bookEnd"){
                   start = false;
                   return true;
               }
               start = true;
-              bookingID = $(this).attr('value');
+              $(this).attr('holdID', bookingID);
           }
         return start;
 
-      }).addClass('colorMe booked').attr('value', bookingID);
+      }).addClass('colorMe booked');
     };
 
     colorBookings();
@@ -318,13 +322,20 @@ $('table#'+ 1 +' td').filter(function(){
       var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
       $('.dateString').val(strDateTime2);
     });
+/*
+    $(".colorMe").click({param1: bookings}, cool_function);
 
-
-    $('.colorMe').click(function(e) {
-      var bookingIDtest = this.getAttribute('value');
-      alert(bookingIDtest);
-      $('.booking_from').append(bookings[bookingIDtest]['from']);
-    });
+    function cool_function(event){
+        var bookingID = this.getAttribute('holdID');
+        alert(event.data.param1[bookingID]['from']);
+    }*/
+/*
+    $('.colorMe').click(bookings, function(e) {
+      var bookingID = this.getAttribute('holdID');
+      alert(bookingID);
+      var from = bookings[bookingID]['from'];
+      //$('.booking_from').append(bookings[bookingID]['from']);
+    });*/
 
 /*
     var getHowManyLinesInBooking = function(bookedFrom, bookedTo, room_id) {
