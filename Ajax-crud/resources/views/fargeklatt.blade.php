@@ -241,25 +241,27 @@
 
 
 
-
+    var getBookingInfo = function() {
     /* Henter ut info fra booking som er trykket på, legger inn i modal-felt */
-    $('.colorMe').click({bookings}, function getBookingInfo(e) {
-      var bookingID = this.getAttribute('holdID') - 1;
-      $('.booking_from').empty();
-      $('.booking_from').append(bookings[bookingID]['from']);
-      $('.booking_to').empty();
-      $('.booking_to').append(bookings[bookingID]['to']);
-    });
+      $('.colorMe').click({bookings}, function (e) {
+        var bookingID = this.getAttribute('holdID') - 1;
+        $('.booking_from').empty();
+        $('.booking_from').append(bookings[bookingID]['from']);
+        $('.booking_to').empty();
+        $('.booking_to').append(bookings[bookingID]['to']);
+      });
+    }
+
+    $('.colorMe').click(getBookingInfo());
 
     /* Event handlers for hva som skjer når selected day, next day, eller prev day trykkes på */
-
-
 
     $('.next-day').on("click", function () {
       var date = $('#date').datepicker('getDate');
       date.setTime(date.getTime() + (1000*60*60*24))
         $('#date').datepicker("setDate", date);
         /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
+        //makeRoomTables(rooms, times);
         $('.roomTable td').filter(function() {
           $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("").attr('data-target', "#myModal");
         });
@@ -270,6 +272,7 @@
         displayBookings(bookings, strDateTime2);
         colorBookings();
         makeBookingClickable();
+        $('.colorMe').click(getBookingInfo());
     });
 
     $('.prev-day').on("click", function () {
@@ -287,6 +290,7 @@
         displayBookings(bookings, strDateTime2);
         colorBookings();
         makeBookingClickable();
+        $('.colorMe').click(getBookingInfo());
     });    
 
 
@@ -303,6 +307,7 @@
           displayBookings(bookings, strDateTime2);
           colorBookings();
           makeBookingClickable();
+          $('.colorMe').click(getBookingInfo());
       });
 
 
