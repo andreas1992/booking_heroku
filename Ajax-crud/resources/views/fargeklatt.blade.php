@@ -17,9 +17,12 @@
       width: 100%;
       color: black !important;
     }
-    .roomTd, .roomTr {
+    .roomTd {
       border: 1px solid lightgrey;
       text-align: center;
+    }
+    .roomTdNoBorder {
+      border: 0px !important;
     }
     .roomTd {
       padding: 1% !important;
@@ -198,11 +201,11 @@
           for(var j = 0; j <tdsInTable.length; j++) {
 
             if (bookings[i]['from'] == tdsInTable[j].id) {
-              $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked');
+              $(tdsInTable[j]).append(bookings[i]['from']).attr('id', 'bookStart').addClass('colorMe booked').attr('value', bookings[i]['id']);
               $(tdsInTable[j]).append('<a href="/fargeklatt/'+bookings[i]['id']+'" id="'+ bookings[i]['id'] +'">vis booking</a>');
             } 
             else if (bookings[i]['to'] == tdsInTable[j].id) {
-              $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked');
+              $(tdsInTable[j-1]).append(bookings[i]['to']).attr('id', 'bookEnd').addClass('colorMe booked').attr('value', bookings[i]['id']);
             }
           }
         }
@@ -214,6 +217,7 @@
     // Fargelegge alle celler/td fra og med bookstart til og med bookend, for alle celler i tabell
     var colorBookings = function() {
       var start = false;
+      var bookingID = "";
           $("table td").filter(function(){
             if(this.id == "bookStart" || start) {
               if(this.id == "bookEnd"){
@@ -221,10 +225,11 @@
                   return true;
               }
               start = true;
+              bookingID = $(this).attr('value');
           }
         return start;
 
-      }).addClass('colorMe booked');
+      }).addClass('colorMe booked').attr('value', bookingID);
     };
 
     colorBookings();
@@ -312,6 +317,13 @@ $('table#'+ 1 +' td').filter(function(){
       var currDate = new Date($('#date').datepicker('getDate'));
       var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
       $('.dateString').val(strDateTime2);
+    });
+
+
+    $('.colorMe').click(function(e) {
+      var bookingIDtest = this.getAttribute('value');
+      alert(bookingIDtest);
+      $('.booking_from').append(bookings[bookingIDtest]['from']);
     });
 
 /*
@@ -645,11 +657,12 @@ $('table#'+ 1 +' td').filter(function(){
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <p class="booking_from">Fra: </p>
+        <p class="booking_to">Til: </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Slett booking</button>
+        <button type="submit" class="btn btn-danger">Slett booking</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
