@@ -254,31 +254,10 @@
 
     $('.colorMe').click(getBookingInfo());
 
+
+
     /* Event handlers for hva som skjer når selected day, next day, eller prev day trykkes på */
-
-    $('.next-day').on("click", function () {
-      var date = $('#date').datepicker('getDate');
-      date.setTime(date.getTime() + (1000*60*60*24))
-        $('#date').datepicker("setDate", date);
-        /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
-        //makeRoomTables(rooms, times);
-        $('.roomTable td').filter(function() {
-          $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("").attr('data-target', "#myModal");
-        });
-        var currDate = new Date($('#date').datepicker('getDate'));
-        var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
-        //alert(strDateTime2);
-        /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
-        displayBookings(bookings, strDateTime2);
-        colorBookings();
-        makeBookingClickable();
-        $('.colorMe').click(getBookingInfo());
-    });
-
-    $('.prev-day').on("click", function () {
-      var date = $('#date').datepicker('getDate');
-      date.setTime(date.getTime() - (1000*60*60*24))
-        $('#date').datepicker("setDate", date);
+    var dateSetTables = function() {
         /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
          $('.roomTable td').filter(function() {
           $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("").attr('data-target', "#myModal");
@@ -291,23 +270,27 @@
         colorBookings();
         makeBookingClickable();
         $('.colorMe').click(getBookingInfo());
+    }
+
+    $('.next-day').on("click", function () {
+      var date = $('#date').datepicker('getDate');
+      date.setTime(date.getTime() + (1000*60*60*24))
+      $('#date').datepicker("setDate", date);
+        dateSetTables();
+    });
+
+    $('.prev-day').on("click", function () {
+      var date = $('#date').datepicker('getDate');
+      date.setTime(date.getTime() - (1000*60*60*24))
+      $('#date').datepicker("setDate", date);
+        dateSetTables();
     });    
 
 
     /* bootstrap-datepicker ting som kjører når event 'changeDate' oppstår */
     $('#date').datepicker().on('changeDate', function(e) {
           /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
-           $('.roomTable td').filter(function() {
-            $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("").attr('data-target', "#myModal");
-          });
-          var currDate = new Date($('#date').datepicker('getDate'));
-          var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
-          //alert(strDateTime2);
-          /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
-          displayBookings(bookings, strDateTime2);
-          colorBookings();
-          makeBookingClickable();
-          $('.colorMe').click(getBookingInfo());
+          dateSetTables();
       });
 
 
