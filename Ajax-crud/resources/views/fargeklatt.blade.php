@@ -240,6 +240,17 @@
     makeBookingClickable();
 
 
+
+
+    /* Henter ut info fra booking som er trykket på, legger inn i modal-felt */
+    $('.colorMe').click({bookings}, function getBookingInfo(e) {
+      var bookingID = this.getAttribute('holdID') - 1;
+      $('.booking_from').empty();
+      $('.booking_from').append(bookings[bookingID]['from']);
+      $('.booking_to').empty();
+      $('.booking_to').append(bookings[bookingID]['to']);
+    });
+
     /* Event handlers for hva som skjer når selected day, next day, eller prev day trykkes på */
 
 
@@ -322,20 +333,7 @@ $('table#'+ 1 +' td').filter(function(){
       var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
       $('.dateString').val(strDateTime2);
     });
-/*
-    $(".colorMe").click({param1: bookings}, cool_function);
 
-    function cool_function(event){
-        var bookingID = this.getAttribute('holdID');
-        alert(event.data.param1[bookingID]['from']);
-    }*/
-/*
-    $('.colorMe').click(bookings, function(e) {
-      var bookingID = this.getAttribute('holdID');
-      alert(bookingID);
-      var from = bookings[bookingID]['from'];
-      //$('.booking_from').append(bookings[bookingID]['from']);
-    });*/
 
 /*
     var getHowManyLinesInBooking = function(bookedFrom, bookedTo, room_id) {
@@ -668,8 +666,8 @@ $('table#'+ 1 +' td').filter(function(){
         </button>
       </div>
       <div class="modal-body">
-        <p class="booking_from">Fra: </p>
-        <p class="booking_to">Til: </p>
+        <p>Fra:  <span class="booking_from"></span></p>
+        <p>Til: <span class="booking_to"></span></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
