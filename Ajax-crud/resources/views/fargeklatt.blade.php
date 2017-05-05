@@ -241,7 +241,7 @@
         $('#date').datepicker("setDate", date);
         /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
         $('.roomTable td').filter(function() {
-          $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("");
+          $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("").attr('data-target', "#myModal");
         });
         var currDate = new Date($('#date').datepicker('getDate'));
         var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
@@ -249,6 +249,7 @@
         /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
         displayBookings(bookings, strDateTime2);
         colorBookings();
+        makeBookingClickable();
     });
 
     $('.prev-day').on("click", function () {
@@ -257,7 +258,7 @@
         $('#date').datepicker("setDate", date);
         /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
          $('.roomTable td').filter(function() {
-          $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("");
+          $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("").attr('data-target', "#myModal");
         });
         var currDate = new Date($('#date').datepicker('getDate'));
         var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
@@ -265,6 +266,7 @@
         /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
         displayBookings(bookings, strDateTime2);
         colorBookings();
+        makeBookingClickable();
     });    
 
 
@@ -272,7 +274,7 @@
     $('#date').datepicker().on('changeDate', function(e) {
           /* Sletter bookings som er satt på tabellene, dvs fjerner "booked" og "bookedFrom" attributter */
            $('.roomTable td').filter(function() {
-            $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("");
+            $(this).attr('class', 'roomTd tdspacing').attr('id', $(this).attr("name")).html("").attr('data-target', "#myModal");
           });
           var currDate = new Date($('#date').datepicker('getDate'));
           var strDateTime2 =  currDate.getDate() + "/" + (currDate.getMonth()+1) + "/" + currDate.getFullYear();
@@ -280,6 +282,7 @@
           /* Går gjennom bookings og setter inn de som skal inn på den dagen det er trykket på */
           displayBookings(bookings, strDateTime2);
           colorBookings();
+          makeBookingClickable();
       });
 
 
@@ -646,6 +649,7 @@ $('table#'+ 1 +' td').filter(function(){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Slett booking</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
